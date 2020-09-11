@@ -1,15 +1,27 @@
-<div class="p-grid p-fluid">
+<form [formGroup]="loginForm" class="p-grid p-fluid">
   <div class="p-col-12 p-md-4">
     <div class="p-field">
       <div class="p-inputgroup">
         <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-        <input type="text" pInputText placeholder="Username" />
+        <input
+          formControlName="username"
+          type="text"
+          pInputText
+          required
+          placeholder="Username"
+        />
       </div>
     </div>
     <div class="p-field">
       <div class="p-inputgroup">
         <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
-        <input type="password" pInputText placeholder="Password" />
+        <input
+          formControlName="password"
+          type="password"
+          pInputText
+          required
+          placeholder="Password"
+        />
       </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
@@ -22,8 +34,14 @@
         ></button>
       </div>
       <div class="p-field p-col">
-        <button type="button" pButton label="Sign In"></button>
+        <button
+          type="button"
+          pButton
+          label="Sign In"
+          [disabled]="isFormInvalid"
+          (click)="onLogin()"
+        ></button>
       </div>
     </div>
   </div>
-</div>
+</form>

@@ -1,15 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthCredentials } from 'src/app/core/models';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
+  public loginForm: FormGroup = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public get isFormInvalid(): boolean {
+    return this.loginForm.invalid;
   }
 
+  constructor(private authService: AuthService, private fb: FormBuilder) {}
+
+  public ngOnInit(): void {}
+
+  public onLogin(): void {
+    const credentials: AuthCredentials = {
+      identifier: this.loginForm.get('username')?.value,
+      password: this.loginForm.get('password')?.value,
+    };
+
+    this.authService.login$(credentials);
+  }
 }
